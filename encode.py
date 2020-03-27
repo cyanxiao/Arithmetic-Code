@@ -38,9 +38,10 @@ class Encode:
         """
         left = 0
         right = 1
-        for i in range(1, len(self.to_be_encoded) + 1):
-            l_update = left + (right - left) * self.probability_accumulation[i - 1]
-            r_update = left + (right - left) * self.probability_accumulation[i]
+        for i in range(0, len(self.to_be_encoded)):
+            k = self.alphabet.index(self.to_be_encoded[i]) + 1
+            l_update = left + (right - left) * self.probability_accumulation[k - 1]
+            r_update = left + (right - left) * self.probability_accumulation[k]
             left = l_update
             right = r_update
         return left, right
