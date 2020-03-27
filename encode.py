@@ -36,11 +36,11 @@ class Encode:
         计算输入信息最终的概率区间
         :return: 左区间、右区间
         """
-        l = 0
-        r = 1
+        left = 0
+        right = 1
         for i in range(1, len(self.to_be_encoded) + 1):
-            l_update = l + (r - l) * self.probability_accumulation[i - 1]
-            r_update = l + (r - l) * self.probability_accumulation[i]
-            l = l_update
-            r = r_update
-        return l, r
+            l_update = left + (right - left) * self.probability_accumulation[i - 1]
+            r_update = left + (right - left) * self.probability_accumulation[i]
+            left = l_update
+            right = r_update
+        return left, right
