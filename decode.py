@@ -1,9 +1,19 @@
+import binary_process
+
+
 class Decode:
-    def __init__(self, input_alphabet: list, input_probability: list, input_length: int, tag):
+    def __init__(self, input_alphabet: list, input_probability: list, input_length: int, binary_tag):
+        """
+        初始化解密程序
+        :param input_alphabet: 字符表
+        :param input_probability: 每个字符出现的概率
+        :param input_length: 原信息长度
+        :param binary_tag: 二进制加密后的信息
+        """
         self.alphabet = input_alphabet
         self.probability = input_probability
         self.length = input_length
-        self.tag = tag
+        self.tag = binary_process.binary_to_decimal(binary_tag)
         self.probability_accumulation = [0]
         self.generate_probability_accumulation_map()
 

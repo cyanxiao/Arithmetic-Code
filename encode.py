@@ -1,14 +1,16 @@
+import binary_process
+
+
 class Encode:
-    def __init__(self, input_alphabet: list, input_probability: list, input_length: int, input_to_be_encoded: str):
+    def __init__(self, input_alphabet: list, input_probability: list, input_to_be_encoded: str):
         """
         初始化加密程序参数
         :param input_alphabet: 字符表
         :param input_probability: 每个字符出现的概率
-        :param input_length: 信息字符长度
+        :param input_to_be_encoded: 需要加密的信息 str
         """
         self.alphabet = input_alphabet
         self.probability = input_probability
-        self.length = input_length
         self.to_be_encoded = input_to_be_encoded
         self.probability_map = {}
         self.probability_accumulation = [0]
@@ -45,3 +47,17 @@ class Encode:
             left = l_update
             right = r_update
         return left, right
+
+    def binary_output(self):
+        """
+        将十进制小数输出转换为二进制输出
+        :return: 二进制 str
+        """
+        left, right = self.calculate_probability()
+        length = 1
+        current_outcome = binary_process.binary_to_decimal(binary_process.decimal_to_binary((left + right) / 2, length))
+        while not left <= current_outcome < right:
+            length += 1
+            current_outcome = binary_process.binary_to_decimal(
+                binary_process.decimal_to_binary((left + right) / 2, length))
+        return binary_process.decimal_to_binary((left + right) / 2, length)
